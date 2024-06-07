@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 interface IAuthPageProps {
   title: string;
   signup: (params: UserInfo) => Promise<void>;
+  login: (params: UserInfo) => Promise<void>;
 }
 
 export interface UserInfo {
@@ -15,7 +16,7 @@ export interface UserInfo {
   password: string;
 }
 
-export const AuthPage = ({title, signup}: IAuthPageProps) => {
+export const AuthPage = ({title, signup, login}: IAuthPageProps) => {
   const [isLogin, setIsLogin] = useState(false);
   const [info, setInfo] = useState({
     name: '',
@@ -59,7 +60,7 @@ export const AuthPage = ({title, signup}: IAuthPageProps) => {
       }
     }
 
-    isLogin ? signup(info) : signup(info);
+    isLogin ? login(info) : signup(info);
   }
 
   return (
