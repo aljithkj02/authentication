@@ -5,7 +5,10 @@ import { ExpressRequest } from "../lib/types/custom-types";
 
 export const authMiddleware = async (req: ExpressRequest, res: Response, next: NextFunction) => {
     try {
-        const token = req.headers.authorization?.split(' ').pop();
+        let token = req.headers.authorization?.split(' ').pop();
+        if (token === 'Bearer') {
+            token = req.cookies.access_token;
+        }
 
         const jsonResponse = {
             status: false,

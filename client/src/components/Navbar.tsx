@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom"
 import { Loading } from "./atoms/Loading";
 import { useSelector } from "react-redux";
 import { IRootState } from "../types/intex";
+import { logoutUserCookie } from "../services/email-cookie";
 
 export const Navbar = () => {
     const {pathname} = useLocation();
@@ -12,7 +13,7 @@ export const Navbar = () => {
             { pathname !== '/home' && (
                 <>
                     <Link className="text-lg text-white hover:text-gray-300 transition-all duration-300" to='/auth-email-jwt'>Email-JWT</Link>
-                    <Link className="text-lg text-white hover:text-gray-300 transition-all duration-300" to='/auth-email-session'>Email-SESSION</Link>
+                    <Link className="text-lg text-white hover:text-gray-300 transition-all duration-300" to='/auth-email-cookie'>Email-COOKIE</Link>
                     <Link className="text-lg text-white hover:text-gray-300 transition-all duration-300" to='/auth-sso'>SSO</Link>
                     <Link className="text-lg text-white hover:text-gray-300 transition-all duration-300" to='/auth-supabase'>Supabase</Link>
                     <Link className="text-lg text-white hover:text-gray-300 transition-all duration-300" to='/auth-firebase'>Firebase</Link>
@@ -22,7 +23,10 @@ export const Navbar = () => {
             { pathname === '/home' && (
                 <>
                     <p className="text-lg text-white">Products</p>
-                    <Link className="text-lg text-white bg-red-500 px-4 py-1 rounded-md" to="/">Logout</Link>
+                    <Link onClick={() => {
+                        logoutUserCookie();
+                        localStorage.removeItem('access_token');
+                    }} className="text-lg text-white bg-red-500 px-4 py-1 rounded-md" to="/">Logout</Link>
                 </>
             )}
 

@@ -16,6 +16,7 @@ export const signupUserCookie = async (req: Request, res: Response) => {
             secure: false,
             httpOnly: true,
             sameSite: "none",
+            maxAge: 60000
         })
 
         return res.json({
@@ -44,6 +45,7 @@ export const loginUserCookie = async (req: Request, res: Response) => {
             secure: false,
             httpOnly: true,
             sameSite: "lax",
+            maxAge: 60000
         })
         return res.json({
             status: json.status,
@@ -55,4 +57,12 @@ export const loginUserCookie = async (req: Request, res: Response) => {
             message: (error as Error).message
         })
     }
+}
+
+export const logoutUserCookie = async (req: Request, res: Response) => {
+    res.clearCookie('access_token');
+    res.json({
+        status: true,
+        message: 'User logged out successfully!'
+    })
 }

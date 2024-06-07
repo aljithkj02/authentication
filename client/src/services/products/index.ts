@@ -11,6 +11,7 @@ export const getProducts = async () => {
             headers: {
                 authorization: `Bearer ${token}`
             },
+            credentials: "include"
         })
 
         const json: ProductsResponse = await res.json();
