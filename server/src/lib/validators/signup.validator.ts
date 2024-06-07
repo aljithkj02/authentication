@@ -11,7 +11,8 @@ const loginSchema = z.object({
     password: z.string()
 })
 
-export type UserInfoType = z.infer<typeof signupSchema>;
+export type SignupInfoType = z.infer<typeof signupSchema>;
+export type LoginInfoType = z.infer<typeof loginSchema>;
 
 export const validateSignupBody = (body: any) => {
     return signupSchema.safeParse(body);
