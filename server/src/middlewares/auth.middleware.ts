@@ -16,10 +16,10 @@ export const authMiddleware = async (req: ExpressRequest, res: Response, next: N
             return res.status(401).json(jsonResponse);
         }
 
-        const tokenData = verifyToken('token')
-
+        const tokenData = verifyToken(token)
+        
         if (!tokenData.status) {
-            return res.status(401).json(jsonResponse);
+            return res.status(401).json(tokenData);
         }
 
         const user = await prisma.user.findUnique({
