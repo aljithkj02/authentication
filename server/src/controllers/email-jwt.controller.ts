@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { validateSignupBody } from "../lib/validators/signup.validator";
 import { handleValidationError } from "../lib/exceptions";
+import { createUser } from "../db/crud-user";
 
 export const signupUserJwt = async (req: Request, res: Response) => {
     try {
@@ -10,11 +11,8 @@ export const signupUserJwt = async (req: Request, res: Response) => {
             return handleValidationError(res, validateResult.error);
         }
         
-        return res.json({
-            status: true,
-            message: 'Signed up successfully!',
-            access_token: ''
-        })
+        const json = await createUser(validateResult.data);
+        return res.json(json);
     } catch (error) {
         return res.json({
             status: false,
