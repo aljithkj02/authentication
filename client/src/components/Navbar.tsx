@@ -1,7 +1,11 @@
 import { Link, useLocation } from "react-router-dom"
+import { Loading } from "./atoms/Loading";
+import { useSelector } from "react-redux";
+import { IRootState } from "../types/intex";
 
 export const Navbar = () => {
     const {pathname} = useLocation();
+    const isLoading = useSelector((state: IRootState) => state.global.isLoading);
 
     return (
         <nav className={`flex py-4 px-10 items-center fixed w-full bg-blue-500 gap-8 ${pathname === '/home' ? 'justify-between': 'justify-end'}`}>
@@ -21,6 +25,8 @@ export const Navbar = () => {
                     <Link className="text-lg text-white bg-red-500 px-4 py-1 rounded-md" to="/">Logout</Link>
                 </>
             )}
+
+            { isLoading && <Loading /> }
         </nav>
     )
 }

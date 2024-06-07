@@ -1,18 +1,19 @@
 import { Outlet } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
 import { Toaster } from "react-hot-toast"
-import { Loading } from "../components/atoms/Loading"
+import { Provider } from "react-redux"
+import { appStore } from "../store"
 
 export const Layout = () => {
-  const loading = false;
   return (
     <div className="select-none">
+      <Provider store={appStore}>
         <Navbar />
         <div className="pt-14">
             <Outlet />
         </div>
         <Toaster />
-        { loading && <Loading /> }
+      </Provider>
     </div>
   )
 }
