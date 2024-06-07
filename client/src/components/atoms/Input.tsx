@@ -22,7 +22,7 @@ export const Input = ({label, type, placeholder, className, value, handleChange,
                 className={`py-2 px-4 border-2 rounded-md w-full ${className ?? ''}`}
                 value={value} onChange={handleChange} name={name}
             />
-            { isPassword && <Button handleClick={toggler} className="w-20">{type === 'password' ? 'show': 'hide'}</Button>}
+            { isPassword && <Button handleClick={toggler} className="w-[5rem]">{type === 'password' ? 'show': 'hide'}</Button>}
         </div>
     </div>
   )
