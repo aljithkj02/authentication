@@ -10,7 +10,7 @@ interface ButtonProps {
 export const Button = ({children, className, handleClick, type}: ButtonProps) => {
   return (
     <button type={type || 'button'} onClick={handleClick ?? function(){}}
-        className={`px-4 py-3 bg-blue-500 text-white w-full ${className ?? ''}`}
+        className={`px-4 py-3 bg-blue-500 rounded-md text-white w-full ${className ?? ''}`}
     >
         {children}
     </button>

@@ -4,8 +4,8 @@ import { Firebase } from "./pages/Firebase"
 import { Supabase } from "./pages/Supabase"
 import { SSO } from "./pages/SSO"
 import { EmailSession } from "./pages/EmailSession"
-import { EmailJWT } from "./pages/EmailJWT"
 import { Home } from "./pages/Home"
+import { EmailJWT } from "./pages/EmailJWT"
 
 
 const routes = createBrowserRouter([

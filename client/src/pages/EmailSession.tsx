@@ -1,7 +1,7 @@
-import React from 'react'
+import { AuthPage } from '../components/AuthPage'
 
 export const EmailSession = () => {
   return (
-    <div>EmailSession</div>
+    <AuthPage title='Email - Session' />
   )
 }

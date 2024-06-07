@@ -3,9 +3,9 @@ import { Navbar } from "../components/Navbar"
 
 export const Layout = () => {
   return (
-    <div>
+    <div className="select-none">
         <Navbar />
-        <div className="py-5 px-10 pt-20">
+        <div className="pt-14">
             <Outlet />
         </div>
     </div>
