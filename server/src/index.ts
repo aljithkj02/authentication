@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { emailJwtRouter } from './routers/email-jwt';
+import { allRoutes } from './routers';
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/email-jwt', emailJwtRouter);
+app.use('/api', allRoutes)
 
 app.listen(8000, () => {
     console.log('Server started on Port', 8000);
