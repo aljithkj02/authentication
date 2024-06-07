@@ -1,9 +1,9 @@
 import {z} from 'zod'
 
 const signupSchema = z.object({
-    name: z.string(),
-    email: z.string(),
-    password: z.string()
+    name: z.string({message: 'name is required'}),
+    email: z.string({message: 'email is required'}),
+    password: z.string({message: 'password is required'})
 })
 
 const loginSchema = z.object({
