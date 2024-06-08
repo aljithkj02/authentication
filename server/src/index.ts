@@ -4,6 +4,9 @@ import dotenv from 'dotenv'
 import { allRoutes } from './routers';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
+import session from 'express-session';
+
+require('./lib/auth-strategies/google-strategy')
 
 dotenv.config();
 
@@ -15,6 +18,11 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: "Session Secret"
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 
