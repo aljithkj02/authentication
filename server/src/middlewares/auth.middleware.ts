@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { verifyToken } from "../lib/jwt";
 import { prisma } from "../db";
-import { ExpressRequest } from "../lib/types/custom-types";
 
-export const authMiddleware = async (req: ExpressRequest, res: Response, next: NextFunction) => {
+export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let token = req.headers.authorization?.split(' ').pop();
         if (token === 'Bearer') {
@@ -34,9 +33,9 @@ export const authMiddleware = async (req: ExpressRequest, res: Response, next: N
         }
 
         req['user'] = user;
-
         next();
     } catch (error) {
+        next(error);
         return res.status(401).json({
             status: false,
             message: (error as Error).message

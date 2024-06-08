@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { allRoutes } from './routers';
 import cookieParser from 'cookie-parser';
+import passport from 'passport';
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.send({
