@@ -13,7 +13,7 @@ passport.use(new Strategy({
         name: profile.displayName,
         email: profile.email,
         authType: AuthType.GOOGLE
-  }
+    }
 
     return done(null, userObj)
 }))

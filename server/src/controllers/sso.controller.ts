@@ -4,10 +4,10 @@ import { SSCInputType } from "../lib/types/ssc.handler.type";
 import { generateToken, verifyToken } from "../lib/jwt";
 import { JwtPayload } from "jsonwebtoken";
 
-export const handleUserData = async ({name, email, authType}: SSCInputType) => {
+export const handleUserData = async ({name, email}: SSCInputType, authType: AuthType) => {
     try {
         let user = await prisma.user.findFirst({
-            where: { email, authType: AuthType.GOOGLE }
+            where: { email, authType: authType }
         })
 
         if (!user) {
@@ -15,7 +15,7 @@ export const handleUserData = async ({name, email, authType}: SSCInputType) => {
                 data: {
                     name,
                     email,
-                    authType: AuthType.GOOGLE
+                    authType
                 }
             })
         }
@@ -34,7 +34,7 @@ export const handleUserData = async ({name, email, authType}: SSCInputType) => {
     }
 }
 
-export const validateAndHandleToken = async (token: string): Promise<{
+export const validateAndHandleToken = async (token: string, authType: AuthType): Promise<{
     status: boolean,
     message?: string;
     data?: (JwtPayload & {id: number}) | undefined,
@@ -49,7 +49,7 @@ export const validateAndHandleToken = async (token: string): Promise<{
         }
         
         let user = await prisma.user.findUnique({
-            where: { id: isValidToken?.data?.id, authType: 'GOOGLE'}
+            where: { id: isValidToken?.data?.id, authType}
         })
 
         if (!user) {

@@ -7,6 +7,7 @@ import passport from 'passport';
 import session from 'express-session';
 
 require('./lib/auth-strategies/google-strategy')
+require('./lib/auth-strategies/github-strategy')
 
 dotenv.config();
 

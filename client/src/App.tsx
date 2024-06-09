@@ -7,6 +7,7 @@ import { EmailCookie } from "./pages/EmailCookie"
 import { Home } from "./pages/Home"
 import { EmailJWT } from "./pages/EmailJWT"
 import { GoogleAccessToken } from "./pages/GoogleAccessToken"
+import { GithubAccessToken } from "./pages/GithubAccessToken"
 
 
 const routes = createBrowserRouter([
@@ -43,6 +44,10 @@ const routes = createBrowserRouter([
   {
     path: '/auth/google',
     element: <GoogleAccessToken />
+  },
+  {
+    path: '/auth/github',
+    element: <GithubAccessToken />
   }
 ])
 

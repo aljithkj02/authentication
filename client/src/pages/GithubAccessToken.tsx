@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { verifyAccessToken } from "../services/sso";
 
-export const GoogleAccessToken = () => {
+export const GithubAccessToken = () => {
     const [searchParam] = useSearchParams();
     
     const access_token = searchParam.get('access_token');

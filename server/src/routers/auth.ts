@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { AuthType, User } from "@prisma/client";
 import { Router } from "express";
 import passport from "passport";
 import { handleUserData, validateAndHandleToken } from "../controllers/sso.controller";
@@ -17,14 +17,16 @@ authRouter.get( '/google/callback',
         failureRedirect: 'http://localhost:5173/',
     }),
     async (req, res) => {
-        const response = await handleUserData(req.user as SSCInputType);
+        const response = await handleUserData(req.user as SSCInputType, AuthType.GOOGLE);
         res.redirect(`http://localhost:5173/auth/google?access_token=${response.access_token}`);
     }
 );
 
-authRouter.get('/google/get-token', async (req, res) => {
+authRouter.get('/sso/get-token', async (req, res) => {
     try {
         const access_token = req.query.access_token;
+        const auth_type =req.query.auth_type;
+
         if (!access_token) {
             return res.json({
                 status: false,
@@ -32,7 +34,7 @@ authRouter.get('/google/get-token', async (req, res) => {
             })
         }
 
-        const json = await validateAndHandleToken(access_token as string);
+        const json = await validateAndHandleToken(access_token as string, auth_type as AuthType);
 
         if (!json.status) {
             return res.json(json);
@@ -61,8 +63,10 @@ authRouter.get('/google/get-token', async (req, res) => {
 authRouter.get('/github', [passport.authenticate('github')]);
 
 authRouter.get('/github/callback', passport.authenticate('github', {
-    failureRedirect: "http://localhost:5173"
-}), (req, res) => {
-    console.log(req.user);
-    res.redirect('http://localhost:5173/home');
-})
+        failureRedirect: "http://localhost:5173"
+    }), 
+    async (req, res) => {
+        const response = await handleUserData(req.user as SSCInputType, AuthType.GITHUB);
+        res.redirect(`http://localhost:5173/auth/github?access_token=${response.access_token}`);
+    }
+)
