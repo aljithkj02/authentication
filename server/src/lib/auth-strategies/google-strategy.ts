@@ -14,6 +14,7 @@ passport.use(new Strategy({
         email: profile.email,
         authType: AuthType.GOOGLE
   }
+
     return done(null, userObj)
 }))
 

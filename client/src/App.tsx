@@ -6,6 +6,7 @@ import { SSO } from "./pages/SSO"
 import { EmailCookie } from "./pages/EmailCookie"
 import { Home } from "./pages/Home"
 import { EmailJWT } from "./pages/EmailJWT"
+import { GoogleAccessToken } from "./pages/GoogleAccessToken"
 
 
 const routes = createBrowserRouter([
@@ -38,6 +39,10 @@ const routes = createBrowserRouter([
         element: <Firebase />
       }
     ]
+  },
+  {
+    path: '/auth/google',
+    element: <GoogleAccessToken />
   }
 ])
 
