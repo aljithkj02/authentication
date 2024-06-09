@@ -6,6 +6,7 @@ import { SSCInputType } from "../lib/types/ssc.handler.type";
 
 export const authRouter = Router();
 
+// GOOGLE 
 authRouter.get('/google',
   passport.authenticate('google', { scope:
       [ 'email', 'profile' ] }
@@ -54,4 +55,14 @@ authRouter.get('/google/get-token', async (req, res) => {
             message: (error as Error).message
         })
     }
+})
+
+// GITHUB 
+authRouter.get('/github', [passport.authenticate('github')]);
+
+authRouter.get('/github/callback', passport.authenticate('github', {
+    failureRedirect: "http://localhost:5173"
+}), (req, res) => {
+    console.log(req.user);
+    res.redirect('http://localhost:5173/home');
 })
