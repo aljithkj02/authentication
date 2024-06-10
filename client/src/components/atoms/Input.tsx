@@ -19,10 +19,10 @@ export const Input = ({label, type, placeholder, className, value, handleChange,
         { label && <label>{label}</label> }
         <div className="flex">
             <input type={type} placeholder={placeholder || ''} 
-                className={`py-2 px-4 border-2 rounded-md w-full ${className ?? ''}`}
+                className={`py-2 px-4 border-2 rounded-md ${isPassword ? 'w-[85%]': 'w-full'} ${className ?? ''}`}
                 value={value} onChange={handleChange} name={name}
             />
-            { isPassword && <Button handleClick={toggler} className="w-[5rem]">{type === 'password' ? 'show': 'hide'}</Button>}
+            { isPassword && <Button handleClick={toggler} className="w-[15%]">{type === 'password' ? 'show': 'hide'}</Button>}
         </div>
     </div>
   )

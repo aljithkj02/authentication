@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verifyToken } from "../lib/jwt";
 import { prisma } from "../db";
+import { getSupaUser } from "./supabase.middleware";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -21,7 +22,13 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
         const tokenData = verifyToken(token)
         
         if (!tokenData.status) {
-            return res.status(401).json(tokenData);
+            const supabaseUser = await getSupaUser(token);
+            if (!supabaseUser.status) {
+                return res.status(401).json(tokenData);
+            }
+
+            req.user = supabaseUser.data;
+            return next();
         }
 
         const user = await prisma.user.findUnique({
