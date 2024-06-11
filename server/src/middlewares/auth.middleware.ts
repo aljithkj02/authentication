@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { verifyToken } from "../lib/jwt";
 import { prisma } from "../db";
 import { getSupaUser } from "./supabase.middleware";
+import { getFirebaseUser } from "./firebase.middleware";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -24,7 +25,13 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
         if (!tokenData.status) {
             const supabaseUser = await getSupaUser(token);
             if (!supabaseUser.status) {
-                return res.status(401).json(tokenData);
+                const firebaseUser = await getFirebaseUser(token);
+                if (!firebaseUser.status) {
+                    return res.status(401).json(tokenData);
+                }
+
+                req.user = firebaseUser.data;
+                return next();
             }
 
             req.user = supabaseUser.data;
