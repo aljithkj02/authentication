@@ -32,11 +32,6 @@ const options: swaggerJsdoc.Options = {
             }
         },
         basePath: 'http://localhost:8000/api',
-        security: [
-            {
-                bearerAuth: []
-            }
-        ]
     },
     apis: [`${__dirname}/../routers/*.ts`]
 }
