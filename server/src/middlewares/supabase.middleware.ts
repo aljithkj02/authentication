@@ -3,11 +3,12 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseurl = process.env.SUPA_URL || '';
 const supabaseAnonkey = process.env.SUPA_BASE_KEY || '';
 
-const supabase = createClient(supabaseurl, supabaseAnonkey);
+// const supabase = createClient(supabaseurl, supabaseAnonkey);
 
 export const getSupaUser = async (token: string) => {
     try {
-        const res = await supabase.auth.getUser(token);
+        // const res = await supabase.auth.getUser(token);
+        let res: any;
         
         if (res.error) {
             return {

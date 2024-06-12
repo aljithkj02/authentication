@@ -1,18 +1,16 @@
 import admin, { ServiceAccount } from 'firebase-admin'
-import serviceAccount from '../.confidential/firebase-adminsdk.json'
+// import serviceAccount from '../.confidential/firebase-adminsdk.json'
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as ServiceAccount)
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount as ServiceAccount)
+// });
 
 export const getFirebaseUser = async (token: string) => {
     try {
-        const decodedToken = await admin.auth().verifyIdToken(token);
+        // const decodedToken = await admin.auth().verifyIdToken(token);
 
-        console.log({decodedToken})
-        const user = await admin.auth().getUser(decodedToken.uid);
-
-        console.log({user})
+        // const user = await admin.auth().getUser(decodedToken.uid);
+        let user:any;
         
         return {
             status: true,

@@ -5,9 +5,12 @@ import { allRoutes } from './routers';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import session from 'express-session';
+import swaggerUi from 'swagger-ui-express'
+import swaggerFile from './docs/swagger_output.json'
+import { swaggerDocs } from './docs/swagger';
 
-require('./lib/auth-strategies/google-strategy')
-require('./lib/auth-strategies/github-strategy')
+// require('./lib/auth-strategies/google-strategy')
+// require('./lib/auth-strategies/github-strategy')
 
 dotenv.config();
 
@@ -34,8 +37,10 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/api', allRoutes)
+app.use('/api', allRoutes);
+// app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(8000, () => {
     console.log('Server started on Port', 8000);
+    swaggerDocs(app);
 })
